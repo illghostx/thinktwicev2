@@ -683,6 +683,234 @@
                 scroll-behavior: auto !important
             }
         }
+
+        /* Verdict spotlight: distinct, accessible status styling */
+        .verdict-spotlight {
+            --verdict-accent: #64d5e4;
+            --verdict-tint: #008c9e18;
+            margin-top: 18px;
+            padding: 24px 26px;
+            border-radius: 22px;
+            background: linear-gradient(120deg, var(--verdict-tint), transparent 78%), var(--surface2);
+            border: 1px solid var(--border);
+            border-left: 6px solid var(--verdict-accent)
+        }
+
+        .verdict-spotlight[data-verdict="Supported"] {
+            --verdict-accent: #37d6a0;
+            --verdict-tint: #1ab88920
+        }
+
+        .verdict-spotlight[data-verdict="Contradicted"] {
+            --verdict-accent: #ff8e8e;
+            --verdict-tint: #d84a4a24
+        }
+
+        .verdict-spotlight[data-verdict="Mixed"] {
+            --verdict-accent: #f4c76c;
+            --verdict-tint: #e6ab3424
+        }
+
+        .verdict-spotlight[data-verdict="Unverified"] {
+            --verdict-accent: #79c9ed;
+            --verdict-tint: #008c9e1f
+        }
+
+        .verdict-caption {
+            font-size: .75rem;
+            font-weight: 850;
+            letter-spacing: .14em;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 8px
+        }
+
+        .verdict-spotlight .verdict {
+            font-size: clamp(1.65rem, 4vw, 2.55rem);
+            font-weight: 900;
+            line-height: 1.15;
+            letter-spacing: -.04em;
+            color: var(--verdict-accent);
+            background: transparent;
+            padding: 0;
+            border-radius: 0;
+            display: block
+        }
+
+        .verdict-summary {
+            font-size: 1.03rem;
+            line-height: 1.55;
+            color: var(--text);
+            max-width: 68ch;
+            margin: 12px 0 0
+        }
+
+        body.light .verdict-spotlight[data-verdict="Supported"] {
+            --verdict-accent: #087d54
+        }
+
+        body.light .verdict-spotlight[data-verdict="Contradicted"] {
+            --verdict-accent: #b72839
+        }
+
+        body.light .verdict-spotlight[data-verdict="Mixed"] {
+            --verdict-accent: #8a5a00
+        }
+
+        body.light .verdict-spotlight[data-verdict="Unverified"] {
+            --verdict-accent: #006c88
+        }
+
+        @media(max-width:520px) {
+            .verdict-spotlight {
+                padding: 20px 18px
+            }
+        }
+
+        /* Single primary workspace + compact, hoverable quick menu */
+        .layout {
+            display: block;
+            max-width: 900px;
+            margin: 0 auto
+        }
+
+        .maincard {
+            width: 100%
+        }
+
+        .sidecard {
+            display: none
+        }
+
+        .help-menu {
+            position: relative;
+            z-index: 30
+        }
+
+        .help-trigger {
+            font-size: 1.25rem;
+            line-height: 1;
+            min-width: 45px;
+            min-height: 45px
+        }
+
+        .help-panel {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 12px);
+            width: min(340px, calc(100vw - 28px));
+            padding: 16px;
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            box-shadow: 0 20px 55px #0007;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-7px);
+            transition: opacity .18s, transform .18s, visibility .18s;
+            pointer-events: none;
+            color: var(--text)
+        }
+
+        .help-menu:hover .help-panel,
+        .help-menu:focus-within .help-panel,
+        .help-menu.open .help-panel {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            pointer-events: auto
+        }
+
+        .help-heading {
+            font-weight: 800;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2px 3px 10px
+        }
+
+        .help-heading span {
+            color: var(--teal)
+        }
+
+        .help-item {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 12px 10px;
+            border-radius: 12px;
+            transition: background .18s
+        }
+
+        .help-item:hover,
+        .help-item:focus {
+            background: var(--surface2);
+            outline: none
+        }
+
+        .help-symbol {
+            display: grid;
+            place-items: center;
+            flex: none;
+            width: 39px;
+            height: 39px;
+            background: #008c9e20;
+            color: var(--teal);
+            border-radius: 10px;
+            font-weight: 800
+        }
+
+        .help-item b,
+        .help-item small {
+            display: block
+        }
+
+        .help-item b {
+            font-size: .92rem
+        }
+
+        .help-item small {
+            font-size: .79rem;
+            color: var(--muted);
+            line-height: 1.45;
+            margin-top: 2px
+        }
+
+        .help-history {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            border: 1px solid var(--teal);
+            border-radius: 12px;
+            background: transparent;
+            color: var(--teal);
+            padding: 12px 14px;
+            margin-top: 9px;
+            font-weight: 750
+        }
+
+        .help-history:hover {
+            background: #008c9e16
+        }
+
+        @media(max-width:520px) {
+            .help-menu {
+                order: -1
+            }
+
+            .help-panel {
+                right: auto;
+                left: 0
+            }
+
+            .actions {
+                gap: 6px
+            }
+
+            .top {
+                gap: 10px
+            }
+        }
     </style>
 </head>
 
@@ -695,14 +923,33 @@
                     </svg></div>
                 <div>thinktwice.<small>Check before you share.</small></div>
             </div>
-            <div class="actions"><button class="chip active" id="dark">Dark</button><button class="chip"
+            <div class="actions">
+                <div class="help-menu" id="helpMenu"><button class="iconbtn help-trigger" id="helpTrigger"
+                        aria-label="Open quick menu" aria-expanded="false" aria-controls="helpPanel"
+                        title="Quick menu">☰</button>
+                    <div class="help-panel" id="helpPanel">
+                        <div class="help-heading">Quick menu <span>ⓘ</span></div>
+                        <div class="help-item" tabindex="0"><span class="help-symbol">◎</span>
+                            <div><b>Clear results</b><small>See evidence, explanations and next steps after
+                                    checking.</small></div>
+                        </div>
+                        <div class="help-item" tabindex="0"><span class="help-symbol">↗</span>
+                            <div><b>Share easily</b><small>Copy, share to WhatsApp or save a report image.</small></div>
+                        </div>
+                        <div class="help-item" tabindex="0"><span class="help-symbol">A+</span>
+                            <div><b>Made for everyone</b><small>Use A− / A+ and light or dark mode for
+                                    readability.</small></div>
+                        </div><button class="help-history" id="historybtn">◷ Recent checks <span>→</span></button>
+                    </div>
+                </div><button class="chip active" id="dark">Dark</button><button class="chip"
                     id="light">Light</button><button class="iconbtn" id="smaller" title="Smaller text"
                     aria-label="Decrease text size">A−</button><button class="iconbtn" id="larger" title="Larger text"
                     aria-label="Increase text size">A+</button><select class="chip" id="lang" aria-label="Language">
                     <option value="en">EN</option>
                     <option value="hi">हिंदी</option>
                     <option value="kn">ಕನ್ನಡ</option>
-                </select></div>
+                </select>
+            </div>
         </header>
         <div class="backbar"><button class="ghost" id="backhome">← Back to check</button></div>
         <div class="layout">
@@ -726,30 +973,17 @@
                         inconclusive</span><button class="primary" id="verify">Check claim ↗</button></div>
                 <div class="history" id="history"></div>
             </main>
-            <aside class="sidecard">
-                <div class="sidehead">
-                    <h2 id="quick">Quick actions</h2><span class="status">● READY</span>
-                </div>
-                <div class="feature">
-                    <div class="symbol">◎</div>
-                    <div><b id="f1">Clear results</b><small id="f1s">Evidence, explanation, next steps</small></div>
-                </div>
-                <div class="feature">
-                    <div class="symbol">↗</div>
-                    <div><b id="f2">Share easily</b><small id="f2s">Copy, WhatsApp, or save image</small></div>
-                </div>
-                <div class="feature">
-                    <div class="symbol">A+</div>
-                    <div><b id="f3">Made for everyone</b><small id="f3s">Readable text and simple controls</small></div>
-                </div><button class="demo" id="historybtn">◷ Recent checks</button>
-            </aside>
         </div>
         <section class="report" id="report">
             <div class="reporthead">
                 <div>
                     <div class="eyebrow" id="resultlabel">CHECK RESULT</div>
                     <h2 id="resulttitle">Here's what we found</h2>
-                    <div class="verdict" id="verdict">◌ Unverified</div>
+                    <div class="verdict-spotlight" id="verdictSpotlight" data-verdict="Unverified">
+                        <div class="verdict-caption">VERDICT</div>
+                        <div class="verdict" id="verdict">Unverified</div>
+                        <p class="verdict-summary" id="verdictSummary">Review the evidence before sharing.</p>
+                    </div>
                 </div><button class="ghost" id="newcheck">+ New check</button>
             </div>
             <div class="tabs" role="tablist" aria-label="Report sections"><button class="tab active" data-tab="evidence"
@@ -765,10 +999,34 @@
     <div class="toast" id="toast" role="status"></div>
     <script type="module">
         const $ = id => document.getElementById(id); const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); let mode = 'text', tab = 'evidence', report = null, scale = Number(localStorage.getItem('tt-scale') || 1), speech = null; const API = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000').replace(/\/$/, ''); function toast(s) { $('toast').textContent = s; $('toast').classList.add('show'); setTimeout(() => $('toast').classList.remove('show'), 3000) } function setMode(m) { mode = m; document.querySelectorAll('[data-mode]').forEach(b => b.classList.toggle('active', b.dataset.mode === m)); $('claim').style.display = m === 'text' ? 'block' : 'none'; $('url').style.display = m === 'url' ? 'block' : 'none'; $('upload').style.display = m === 'image' ? 'block' : 'none'; $('inputfooter').style.display = m === 'text' ? 'flex' : 'none'; $('verify').textContent = m === 'text' ? 'Check claim ↗' : m === 'url' ? 'Check link ↗' : 'Check image ↗' } document.querySelectorAll('[data-mode]').forEach(b => b.onclick = () => setMode(b.dataset.mode)); $('claim').oninput = () => $('counter').textContent = $('claim').value.length + ' / 6000'; $('file').onchange = () => $('filename').textContent = $('file').files[0]?.name || 'PNG, JPG or WebP'; function theme(t) { document.body.classList.toggle('light', t === 'light'); $('dark').classList.toggle('active', t === 'dark'); $('light').classList.toggle('active', t === 'light'); localStorage.setItem('tt-theme', t) } $('dark').onclick = () => theme('dark'); $('light').onclick = () => theme('light'); theme(localStorage.getItem('tt-theme') || 'dark'); function resize(d) { scale = Math.max(.9, Math.min(1.5, scale + d)); document.documentElement.style.fontSize = (16 * scale) + 'px'; localStorage.setItem('tt-scale', scale) } $('larger').onclick = () => resize(.1); $('smaller').onclick = () => resize(-.1); resize(0);
-        const translations = { en: { tagline: 'YOUR FACT-CHECKING SPACE', headline: 'Pause. Check. <span>Know.</span>', subtitle: 'Check a claim, link, or image in a few taps.', quick: 'Quick actions', history: '◷ Recent checks', helper: 'No account needed · Results may be inconclusive' }, hi: { tagline: 'आपकी तथ्य-जाँच', headline: 'रुकें। जाँचें। <span>जानें।</span>', subtitle: 'किसी दावे, लिंक या तस्वीर की जाँच करें।', quick: 'आसान विकल्प', history: '◷ पिछली जाँच', helper: 'खाता आवश्यक नहीं · परिणाम अनिश्चित हो सकते हैं' }, kn: { tagline: 'ನಿಮ್ಮ ಸತ್ಯ ಪರಿಶೀಲನೆ', headline: 'ನಿಲ್ಲಿ. ಪರಿಶೀಲಿಸಿ. <span>ತಿಳಿಯಿರಿ.</span>', subtitle: 'ಹೇಳಿಕೆ, ಲಿಂಕ್ ಅಥವಾ ಚಿತ್ರವನ್ನು ಪರಿಶೀಲಿಸಿ.', quick: 'ತ್ವರಿತ ಆಯ್ಕೆಗಳು', history: '◷ ಹಿಂದಿನ ಪರಿಶೀಲನೆಗಳು', helper: 'ಖಾತೆ ಅಗತ್ಯವಿಲ್ಲ · ಫಲಿತಾಂಶ ಖಚಿತವಾಗದಿರಬಹುದು' } }; $('lang').onchange = () => { const t = translations[$('lang').value]; for (const k of ['tagline', 'subtitle', 'quick', 'history', 'helper']) $(k).textContent = t[k]; $('headline').innerHTML = t.headline; toast('Interface language updated. Verification results remain in the backend language.') };
-        function textSummary() { return ['THINKTWICE FACT CHECK', report?.verdict || '', report?.explanation || '', report?.confidence_note || '', ...(report?.evidence || []).filter(e => e.url).map(e => e.url)].join('\n\n') } function addHistory(r) { try { const list = JSON.parse(localStorage.getItem('tt-history') || '[]'); list.unshift(r); localStorage.setItem('tt-history', JSON.stringify(list.slice(0, 12))) } catch { } } function showReport(r) { report = r; tab = 'evidence'; $('resulttitle').textContent = 'Here’s what we found'; $('verdict').textContent = '◌ ' + (r.verdict || 'Unverified'); $('report').classList.add('visible'); document.body.classList.add('report-page'); render(); window.scrollTo({ top: 0, behavior: 'smooth' }); history.pushState({ page: 'report' }, '', '#report') } function render() { document.querySelectorAll('[data-tab]').forEach(b => { b.classList.toggle('active', b.dataset.tab === tab); b.setAttribute('aria-selected', b.dataset.tab === tab) }); const el = $('content'); el.innerHTML = ''; if (!report) return; if (tab === 'evidence') { const items = report.evidence || []; if (!items.length) { el.innerHTML = '<div class="empty">No source links were returned. This does not prove the claim is true or false.</div>'; return } items.forEach(e => { const d = document.createElement('div'); d.className = 'evidence'; const valid = typeof e.url === 'string' && /^https?:\/\//i.test(e.url); d.innerHTML = '<b>' + esc(e.title || e.source || 'Source') + '</b><small>' + esc([e.source, e.date, e.origin].filter(Boolean).join(' · ')) + '</small><p>' + esc(e.snippet || 'No excerpt provided.') + '</p>' + (valid ? '<a href="' + esc(e.url) + '" target="_blank" rel="noopener noreferrer">Open source ↗</a>' : '<small>No public URL supplied</small>'); el.append(d) }) } else if (tab === 'why') { el.innerHTML = '<h3>Why this verdict?</h3><p>' + esc(report.explanation || 'No explanation was returned.') + '</p><div class="evidence"><b>Confidence & limitations</b><p>' + esc(report.confidence_note || 'No confidence note supplied.') + '</p></div><p><strong>Claim:</strong> ' + esc((report.extracted_claims || []).join(' · ') || report.input_reference || 'Not specified') + '</p>' } else if (tab === 'next') { const items = report.recommendations || []; el.innerHTML = items.length ? items.map((x, i) => '<div class="feature"><div class="symbol">' + (i + 1) + '</div><div>' + esc(x) + '</div></div>').join('') : '<div class="empty">No next steps were returned.</div>' } else { el.innerHTML = '<div class="sharegrid"><button class="primary" id="nativeShare">↗ Share</button><button class="ghost" id="copy">⧉ Copy summary</button><button class="ghost" id="wa">WhatsApp ↗</button><button class="ghost" id="png">↓ Save image</button></div>'; $('nativeShare').onclick = share; $('copy').onclick = async () => { try { await navigator.clipboard.writeText(textSummary()); toast('Copied to clipboard') } catch { toast('Copy unavailable in this browser') } }; $('wa').onclick = () => window.open('https://wa.me/?text=' + encodeURIComponent(textSummary()), '_blank', 'noopener,noreferrer'); $('png').onclick = savePng } }
-        document.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; render() }); async function share() { try { if (navigator.share) await navigator.share({ title: 'ThinkTwice result', text: textSummary() }); else { await navigator.clipboard.writeText(textSummary()); toast('Copied to clipboard') } } catch (e) { if (e.name !== 'AbortError') toast('Sharing unavailable') } } function savePng() { const c = document.createElement('canvas'); c.width = 1000; c.height = 800; const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, 1000, 800); x.fillStyle = '#008C9E'; x.fillRect(0, 0, 1000, 170); x.fillStyle = '#fff'; x.font = 'bold 58px Arial'; x.fillText('thinktwice.', 60, 110); x.fillStyle = '#142026'; x.font = 'bold 46px Arial'; x.fillText(String(report.verdict || 'Unverified').slice(0, 30), 60, 270); x.font = '27px Arial'; let y = 350, line = ''; for (const word of String(report.explanation || '').split(/\s+/)) { if (x.measureText(line + ' ' + word).width > 860) { x.fillText(line, 60, y); y += 45; line = word } else line += (line ? ' ' : '') + word; if (y > 630) break } x.fillText(line, 60, y); x.font = '23px Arial'; x.fillText('AI-assisted · Review the full sources before sharing', 60, 745); const a = document.createElement('a'); a.href = c.toDataURL('image/png'); a.download = 'thinktwice-result.png'; a.click() }
-        function goHome() { document.body.classList.remove('report-page'); $('report').classList.remove('visible'); if (location.hash === '#report') history.replaceState({ page: 'home' }, '', location.pathname + location.search); window.scrollTo({ top: 0, behavior: 'smooth' }); $('claim').focus() } $('newcheck').onclick = goHome; $('backhome').onclick = goHome; window.addEventListener('popstate', () => { if (location.hash !== '#report') goHome(); else if (report) document.body.classList.add('report-page') }); $('historybtn').onclick = () => { const el = $('history'); el.classList.toggle('visible'); if (!el.classList.contains('visible')) return; let items = []; try { items = JSON.parse(localStorage.getItem('tt-history') || '[]') } catch { } el.innerHTML = '<h3>Recent checks</h3>'; if (!items.length) { el.innerHTML += '<p class="hint">No checks yet. Verify a claim to see it here.</p>'; return } items.forEach((r, i) => { const b = document.createElement('button'); b.textContent = (r.verdict || 'Result') + ' · ' + String((r.extracted_claims || []).join(' ') || r.input_reference || 'Check').slice(0, 75); b.onclick = () => showReport(r); el.append(b) }) }; $('verify').onclick = async () => { let value = mode === 'text' ? $('claim').value.trim() : mode === 'url' ? $('url').value.trim() : $('file').files[0]; if (!value) { toast('Enter a claim, link, or image first'); return } if (mode === 'url' && !/^https?:\/\//i.test(value)) { toast('Enter a valid http or https link'); return } const b = $('verify'); b.disabled = true; b.textContent = 'Checking…'; try { let opts = { method: 'POST' }; if (mode === 'image') { const f = new FormData(); f.append('file', value); opts.body = f } else { opts.headers = { 'Content-Type': 'application/json' }; opts.body = JSON.stringify(mode === 'url' ? { url: value } : { text: value }) } const res = await fetch(API + '/api/verify/' + mode, opts); const data = await res.json(); if (!res.ok) throw new Error(typeof data.detail === 'string' ? data.detail : 'Verification failed'); if (!data.verdict) throw new Error('Unexpected server response'); addHistory(data); showReport(data) } catch (e) { toast(e.message || 'Cannot reach the verification server') } finally { b.disabled = false; setMode(mode) } }; $('mic').onclick = () => { const SR = window.SpeechRecognition || window.webkitSpeechRecognition; if (!SR) { toast('Speech input is not supported in this browser'); return } if (speech) { speech.stop(); speech = null; return } const r = new SR(); speech = r; r.lang = $('lang').value === 'hi' ? 'hi-IN' : $('lang').value === 'kn' ? 'kn-IN' : 'en-IN'; r.interimResults = false; r.onresult = e => { $('claim').value += ($('claim').value ? ' ' : '') + e.results[0][0].transcript; $('claim').dispatchEvent(new Event('input')) }; r.onerror = () => toast('Microphone unavailable or permission denied'); r.onend = () => { speech = null; $('mic').textContent = '🎙 Speak' }; r.start(); $('mic').textContent = '■ Stop' };
+        const translations = { en: { tagline: 'YOUR FACT-CHECKING SPACE', headline: 'Pause. Check. <span>Know.</span>', subtitle: 'Check a claim, link, or image in a few taps.', quick: 'Quick actions', history: '◷ Recent checks', helper: 'No account needed · Results may be inconclusive' }, hi: { tagline: 'आपकी तथ्य-जाँच', headline: 'रुकें। जाँचें। <span>जानें।</span>', subtitle: 'किसी दावे, लिंक या तस्वीर की जाँच करें।', quick: 'आसान विकल्प', history: '◷ पिछली जाँच', helper: 'खाता आवश्यक नहीं · परिणाम अनिश्चित हो सकते हैं' }, kn: { tagline: 'ನಿಮ್ಮ ಸತ್ಯ ಪರಿಶೀಲನೆ', headline: 'ನಿಲ್ಲಿ. ಪರಿಶೀಲಿಸಿ. <span>ತಿಳಿಯಿರಿ.</span>', subtitle: 'ಹೇಳಿಕೆ, ಲಿಂಕ್ ಅಥವಾ ಚಿತ್ರವನ್ನು ಪರಿಶೀಲಿಸಿ.', quick: 'ತ್ವರಿತ ಆಯ್ಕೆಗಳು', history: '◷ ಹಿಂದಿನ ಪರಿಶೀಲನೆಗಳು', helper: 'ಖಾತೆ ಅಗತ್ಯವಿಲ್ಲ · ಫಲಿತಾಂಶ ಖಚಿತವಾಗದಿರಬಹುದು' } }; $('lang').onchange = () => { const t = translations[$('lang').value]; for (const k of ['tagline', 'subtitle', 'helper']) $(k).textContent = t[k]; $('headline').innerHTML = t.headline; toast('Interface language updated. Verification results remain in the backend language.') };
+        function textSummary() { return ['THINKTWICE FACT CHECK', report?.verdict || '', report?.explanation || '', report?.confidence_note || '', ...(report?.evidence || []).filter(e => e.url).map(e => e.url)].join('\n\n') } function addHistory(r) { try { const list = JSON.parse(localStorage.getItem('tt-history') || '[]'); list.unshift(r); localStorage.setItem('tt-history', JSON.stringify(list.slice(0, 12))) } catch { } } function showReport(r) { report = r; tab = 'evidence'; $('resulttitle').textContent = 'Here’s what we found'; const v = ['Supported', 'Contradicted', 'Mixed', 'Unverified'].includes(r.verdict) ? r.verdict : 'Unverified'; $('verdict').textContent = v; $('verdictSpotlight').dataset.verdict = v; const explanation = String(r.explanation || 'Evidence is limited; review the sources before sharing.').replace(/\s+/g, ' ').trim(); $('verdictSummary').textContent = explanation.length > 155 ? explanation.slice(0, 152).replace(/\s+\S*$/, '') + '…' : explanation; $('report').classList.add('visible'); document.body.classList.add('report-page'); render(); window.scrollTo({ top: 0, behavior: 'smooth' }); history.pushState({ page: 'report' }, '', '#report') } function render() { document.querySelectorAll('[data-tab]').forEach(b => { b.classList.toggle('active', b.dataset.tab === tab); b.setAttribute('aria-selected', b.dataset.tab === tab) }); const el = $('content'); el.innerHTML = ''; if (!report) return; if (tab === 'evidence') { const items = report.evidence || []; if (!items.length) { el.innerHTML = '<div class="empty">No source links were returned. This does not prove the claim is true or false.</div>'; return } items.forEach(e => { const d = document.createElement('div'); d.className = 'evidence'; const valid = typeof e.url === 'string' && /^https?:\/\//i.test(e.url); d.innerHTML = '<b>' + esc(e.title || e.source || 'Source') + '</b><small>' + esc([e.source, e.date, e.origin].filter(Boolean).join(' · ')) + '</small><p>' + esc(e.snippet || 'No excerpt provided.') + '</p>' + (valid ? '<a href="' + esc(e.url) + '" target="_blank" rel="noopener noreferrer">Open source ↗</a>' : '<small>No public URL supplied</small>'); el.append(d) }) } else if (tab === 'why') { el.innerHTML = '<h3>Why this verdict?</h3><p>' + esc(report.explanation || 'No explanation was returned.') + '</p><div class="evidence"><b>Confidence & limitations</b><p>' + esc(report.confidence_note || 'No confidence note supplied.') + '</p></div><p><strong>Claim:</strong> ' + esc((report.extracted_claims || []).join(' · ') || report.input_reference || 'Not specified') + '</p>' } else if (tab === 'next') { const items = report.recommendations || []; el.innerHTML = items.length ? items.map((x, i) => '<div class="feature"><div class="symbol">' + (i + 1) + '</div><div>' + esc(x) + '</div></div>').join('') : '<div class="empty">No next steps were returned.</div>' } else { el.innerHTML = '<div class="sharegrid"><button class="primary" id="nativeShare">↗ Share</button><button class="ghost" id="copy">⧉ Copy summary</button><button class="ghost" id="wa">WhatsApp ↗</button><button class="ghost" id="png">↓ Save image</button></div>'; $('nativeShare').onclick = share; $('copy').onclick = async () => { try { await navigator.clipboard.writeText(textSummary()); toast('Copied to clipboard') } catch { toast('Copy unavailable in this browser') } }; $('wa').onclick = () => window.open('https://wa.me/?text=' + encodeURIComponent(textSummary()), '_blank', 'noopener,noreferrer'); $('png').onclick = savePng } }
+        document.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; render() }); async function share() { try { if (navigator.share) await navigator.share({ title: 'ThinkTwice result', text: textSummary() }); else { await navigator.clipboard.writeText(textSummary()); toast('Copied to clipboard') } } catch (e) { if (e.name !== 'AbortError') toast('Sharing unavailable') } } function savePng() {
+            if (!report) return;
+            const c = document.createElement('canvas'); c.width = 1080; c.height = 1080;
+            const x = c.getContext('2d'); const v = ['Supported', 'Contradicted', 'Mixed', 'Unverified'].includes(report.verdict) ? report.verdict : 'Unverified';
+            const palette = { Supported: ['#087d54', '#e5f7ef'], Contradicted: ['#b72839', '#fff0f1'], Mixed: ['#8a5a00', '#fff6df'], Unverified: ['#006c88', '#eaf7fc'] };
+            const [accent, tint] = palette[v];
+            const round = (a, b, w, h, r) => { x.beginPath(); x.roundRect(a, b, w, h, r) };
+            const wrap = (str, maxWidth, maxLines, lineHeight, startY) => { let words = String(str || '').trim().split(/\s+/), line = '', lines = []; for (const word of words) { const test = line ? line + ' ' + word : word; if (x.measureText(test).width > maxWidth && line) { lines.push(line); line = word } else line = test } if (line) lines.push(line); if (lines.length > maxLines) { lines = lines.slice(0, maxLines); while (x.measureText(lines[maxLines - 1] + '…').width > maxWidth) lines[maxLines - 1] = lines[maxLines - 1].slice(0, -1); lines[maxLines - 1] += '…' } lines.forEach((l, i) => x.fillText(l, 94, startY + i * lineHeight)); return startY + lines.length * lineHeight };
+            x.fillStyle = '#f3f7f8'; x.fillRect(0, 0, 1080, 1080);
+            x.fillStyle = '#008C9E'; x.fillRect(0, 0, 1080, 180);
+            x.fillStyle = '#ffffff'; x.font = 'bold 61px Arial'; x.fillText('thinktwice.', 85, 112);
+            x.font = '24px Arial'; x.fillText('VERIFY BEFORE YOU SHARE', 87, 153);
+            x.fillStyle = '#ffffff'; round(55, 218, 970, 784, 30); x.fill();
+            x.fillStyle = tint; round(85, 260, 910, 244, 24); x.fill();
+            x.fillStyle = accent; round(85, 260, 10, 244, 5); x.fill();
+            x.font = 'bold 23px Arial'; x.fillText('FACT-CHECK VERDICT', 124, 316);
+            x.font = 'bold 72px Arial'; x.fillText(v, 124, 416);
+            x.fillStyle = '#22313a'; x.font = 'bold 29px Arial'; x.fillText('WHAT WE FOUND', 95, 575);
+            x.fillStyle = '#354650'; x.font = '28px Arial';
+            let y = wrap(report.explanation || 'Evidence is limited. Check the original sources before sharing.', 870, 6, 44, 636);
+            x.fillStyle = '#d8e2e5'; x.fillRect(95, 906, 890, 2);
+            x.fillStyle = '#51636d'; x.font = '22px Arial'; x.fillText('AI-assisted assessment  •  Check original sources', 95, 949);
+            x.fillStyle = '#008C9E'; x.font = 'bold 22px Arial'; x.fillText('thinktwice.', 95, 982);
+            const a = document.createElement('a'); a.href = c.toDataURL('image/png'); a.download = 'thinktwice-verdict-card.png'; a.click();
+        }
+        function goHome() { document.body.classList.remove('report-page'); $('report').classList.remove('visible'); if (location.hash === '#report') history.replaceState({ page: 'home' }, '', location.pathname + location.search); window.scrollTo({ top: 0, behavior: 'smooth' }); $('claim').focus() } $('newcheck').onclick = goHome; $('backhome').onclick = goHome; window.addEventListener('popstate', () => { if (location.hash !== '#report') goHome(); else if (report) document.body.classList.add('report-page') }); const helpMenu = $('helpMenu'), helpTrigger = $('helpTrigger'); helpTrigger.onclick = () => { const open = helpMenu.classList.toggle('open'); helpTrigger.setAttribute('aria-expanded', String(open)) }; document.addEventListener('click', e => { if (!helpMenu.contains(e.target)) { helpMenu.classList.remove('open'); helpTrigger.setAttribute('aria-expanded', 'false') } }); document.addEventListener('keydown', e => { if (e.key === 'Escape') { helpMenu.classList.remove('open'); helpTrigger.setAttribute('aria-expanded', 'false'); helpTrigger.focus() } }); $('historybtn').onclick = () => { helpMenu.classList.remove('open'); helpTrigger.setAttribute('aria-expanded', 'false'); const el = $('history'); el.classList.toggle('visible'); if (!el.classList.contains('visible')) return; let items = []; try { items = JSON.parse(localStorage.getItem('tt-history') || '[]') } catch { } el.innerHTML = '<h3>Recent checks</h3>'; if (!items.length) { el.innerHTML += '<p class="hint">No checks yet. Verify a claim to see it here.</p>'; return } items.forEach((r, i) => { const b = document.createElement('button'); b.textContent = (r.verdict || 'Result') + ' · ' + String((r.extracted_claims || []).join(' ') || r.input_reference || 'Check').slice(0, 75); b.onclick = () => showReport(r); el.append(b) }) }; $('verify').onclick = async () => { let value = mode === 'text' ? $('claim').value.trim() : mode === 'url' ? $('url').value.trim() : $('file').files[0]; if (!value) { toast('Enter a claim, link, or image first'); return } if (mode === 'url' && !/^https?:\/\//i.test(value)) { toast('Enter a valid http or https link'); return } const b = $('verify'); b.disabled = true; b.textContent = 'Checking…'; try { let opts = { method: 'POST' }; if (mode === 'image') { const f = new FormData(); f.append('file', value); opts.body = f } else { opts.headers = { 'Content-Type': 'application/json' }; opts.body = JSON.stringify(mode === 'url' ? { url: value } : { text: value }) } const res = await fetch(API + '/api/verify/' + mode, opts); const data = await res.json(); if (!res.ok) throw new Error(typeof data.detail === 'string' ? data.detail : 'Verification failed'); if (!data.verdict) throw new Error('Unexpected server response'); addHistory(data); showReport(data) } catch (e) { toast(e.message || 'Cannot reach the verification server') } finally { b.disabled = false; setMode(mode) } }; $('mic').onclick = () => { const SR = window.SpeechRecognition || window.webkitSpeechRecognition; if (!SR) { toast('Speech input is not supported in this browser'); return } if (speech) { speech.stop(); speech = null; return } const r = new SR(); speech = r; r.lang = $('lang').value === 'hi' ? 'hi-IN' : $('lang').value === 'kn' ? 'kn-IN' : 'en-IN'; r.interimResults = false; r.onresult = e => { $('claim').value += ($('claim').value ? ' ' : '') + e.results[0][0].transcript; $('claim').dispatchEvent(new Event('input')) }; r.onerror = () => toast('Microphone unavailable or permission denied'); r.onend = () => { speech = null; $('mic').textContent = '🎙 Speak' }; r.start(); $('mic').textContent = '■ Stop' };
     </script>
 </body>
 
